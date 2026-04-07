@@ -50,6 +50,11 @@ public class AnalysisRequest {
 		         
 		        };
 		}
+
+
+		public AnalysisRequest() {
+			
+		}
 	    
 	
 }
