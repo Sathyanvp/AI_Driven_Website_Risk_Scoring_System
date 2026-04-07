@@ -18,7 +18,10 @@ Features Expected (17 total):
 Label: 0 (legitimate) or 1 (phishing)
 """
 import os
-import matplotlib.pyplot as plt
+from tkinter import _test
+from sklearn.metrics import confusion_matrix, classification_report
+import seaborn as seaborn
+import matplotlib.pyplot as matlib
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -72,7 +75,7 @@ class PhishingModelTrainer:
     # FIX 3: Convert to NumPy and cast to float32
     # This fixes the "Unable to interpret feature names" and "f%d pattern" error
         self.X_train = self.X_train.values.astype(np.float32)
-        self.X_test_np = self.X_test.values.astype(np.float32)
+        self.X_test = self.X_test.values.astype(np.float32)
     
     def train_model(self):
        
@@ -92,16 +95,26 @@ class PhishingModelTrainer:
         self.model = xgb.XGBClassifier(
             n_estimators=100,
             max_depth=4,
-            learning_rate=0.1,
+            learning_rate=0.7,
             objective='binary:logistic',
             eval_metric='logloss')
         self.model.fit(
             self.X_train, self.y_train)
         
-        # xgb.plot_importance(self.model)
-        # plt.show()
+        xgb.plot_importance(self.model)
+        matlib.show()
         
-    
+    def evaluate(self):
+        y_pred = self.model.predict(self.X_test)
+        cm = confusion_matrix(self.y_test, y_pred)
+
+# Visualize the matrix
+        seaborn.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+        matlib.xlabel('Predicted')
+        matlib.ylabel('Actual')
+        matlib.show()
+
+        print(classification_report(self.y_test, y_pred))
     
     def save_model(self, output_path):
         print("Exporting model to ONNX format...")
@@ -143,15 +156,15 @@ class PhishingModelTrainer:
 
     def train(self, data_path, output_path):
       
-        # X, y = self.load_data(data_path)
-        # self.split_data(X, y)
+        X, y = self.load_data(data_path)
+        self.split_data(X, y)
         
-        # self.train_model()
-    
+        self.train_model()
+        self.evaluate()
         # self.save_model(output_path)
-        sample_data = [
-33,6,0,0,0,3.6430741894285696,3.6120568402659834,1,0,0,0,2,0]
-        print(self.predict(sample_data))
+#         sample_data = [
+# 33,6,0,0,0,3.6430741894285696,3.6120568402659834,1,0,0,0,2,0]
+#         print(self.predict(sample_data))
 
 
 def main():

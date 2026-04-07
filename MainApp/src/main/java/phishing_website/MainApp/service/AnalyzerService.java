@@ -36,8 +36,9 @@ public class AnalyzerService {
 			
 //			AnalysisRequest normalizedrequest = normalizer.normalize(request);
 //			log.info("request normalized");
+			float[] features_vector = request.featuretoVector();
 
-			Double probability = model.predict(request);
+			Double probability = model.predict(features_vector);
 			log.info("prediction done: " +probability );
 			
 			float risk_score = convertProbabilityToRiskScore(probability);

@@ -36,22 +36,44 @@ public class PhishingURLController {
 
 	static final RequestMethod[] REQUEST_METHODS = { };
 	private AnalyzerService service;
+	
 	public PhishingURLController(AnalyzerService service) {
 		this.service = service;
 	}
 	
 	@PostMapping("/analyze")
 	public ResponseEntity<AnalysisResponse> analyzeUrl(@RequestBody AnalysisRequest request) {
+		
 		log.info("request reached");
-        System.out.println(Arrays.toString(request.featuretoVector()));
+		
+        log.info("Features: url = {}, url_len={}, Token_count={}, hyphenated_domain = {}, uses_ip_address ={}, uses_shortener = {}, "
+        		+ "Char_entropy={}, n_gram entropy = {}, forms={}, password_field_present ={}, external_form_action = {}, "
+        		+ "iframe_count = {}, redirect_indicator = {}, possible_js_obfuscation = {}",
+        		request.getUrl(),
+        		request.getUrl_length(),
+        		request.getToken_count(),
+        		request.getHyphenated_domain(),
+                request.getUses_ip_address(),
+                request.getUses_shortener(),
+                request.getChar_entropy(),
+                request.getNgram_entropy(),
+                request.getForm_count(),
+                request.getPassword_field_present(),
+                request.getExternal_form_action(),
+                request.getIframe_count(),
+                request.getRedirect_indicator(),
+                request.getPossible_js_obfuscation()
+                );
+      
 		try {
 			if(request.getUrl() == null || request.getUrl().isEmpty()) {
 				log.info("Bad request: Request is empty");
 				return ResponseEntity.badRequest().build();
 			}
 			AnalysisResponse response = service.analyzeUrl(request);
-			
+			log.info("Risk Score = {} ", response.getRisk_score());
 			return ResponseEntity.ok(response);
+			
 		}
 		catch(Exception e) {
 			log.info(e + "internal server error");

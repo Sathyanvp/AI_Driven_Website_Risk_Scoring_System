@@ -8,6 +8,8 @@ import jakarta.annotation.PreDestroy;
 import ai.onnxruntime.OrtException;
 import lombok.extern.slf4j.Slf4j;
 import phishing_website.MainApp.entity.AnalysisRequest;
+
+
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -57,17 +59,15 @@ public class ONNXModelService {
      * @param request Analysis request containing features
      * @return Probability of phishing (0.0 - 1.0)
      */
-    public double predict(AnalysisRequest request) {
+    public double predict(float[] features_vector) {
         try {
-            // Convert request to feature vector
-            float[] features = request.featuretoVector();
-            System.out.println(Arrays.toString(features));
+            
             
             // Reshape to [1, 17] for batch processing (1 sample, 17 features)
             // long[] shape = new long[]{1, features.length};
             
             // Create ONNX tensor
-            float[][] reshapedFeatures = new float[][]{features};
+            float[][] reshapedFeatures = new float[][]{features_vector};
             OnnxTensor tensor = OnnxTensor.createTensor(environment, reshapedFeatures);
             
             // Run inference
@@ -93,13 +93,6 @@ public class ONNXModelService {
 
             log.info("Predicted Probability: {}", probabilities[0][0] +", "+probabilities[0][1]);
             
-            log.info("Features: url = {}, url_len={}, Token_count={}, Char_entropy={}, forms={}. Prediction: {}",
-            		request.getUrl(),
-                    request.getUrl_length(),
-                    request.getToken_count(),
-                    request.getChar_entropy(),
-                    request.getForm_count(),
-                    phishingProbability);
             
             tensor.close();
             results.close();
