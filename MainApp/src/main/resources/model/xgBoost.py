@@ -50,8 +50,7 @@ class PhishingModelTrainer:
         self.y_test = None
         self.FEATURE_ORDER = [
     "url_length", "token_count", "hyphenated_domain", "uses_ip_address", "is_shortened",
-    "char_entropy","ngram_entropy", "form_count", "password_field_present", "external_form_action", "iframe_count", 
-    "redirect_indicator"
+    "char_entropy","ngram_entropy", "form_count", "password_field_present", "external_form_action", "iframe_count", "redirect_indicator"
 ]
         
     def load_data(self, data_path):
@@ -169,8 +168,8 @@ class PhishingModelTrainer:
 
 def main():
     np.set_printoptions(suppress=True, precision=5)
-    onnx_path = r"MainApp\src\main\resources\model"
-    dataset_path = r"MainApp\src\main\resources\model\final_dataset.csv"
+    onnx_path = r"C:\Users\ELCOT\git\Phishing_website_detector\MainApp\src\main\resources\model"
+    dataset_path = r"C:\Users\ELCOT\git\Phishing_website_detector\MainApp\src\main\resources\model\final_dataset.csv"
     trainer = PhishingModelTrainer()
     trainer.train(dataset_path, onnx_path)
    

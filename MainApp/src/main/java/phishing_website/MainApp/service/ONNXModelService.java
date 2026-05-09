@@ -9,7 +9,7 @@ import ai.onnxruntime.OrtException;
 import lombok.extern.slf4j.Slf4j;
 import phishing_website.MainApp.entity.AnalysisRequest;
 
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -26,8 +26,8 @@ import java.util.Map;
 @Service
 public class ONNXModelService {
     
-//    @Value("${model.path:models/phishing_detector.onnx}")
-    private String modelPath = "C:\\Users\\ELCOT\\git\\Phishing_website_detector\\MainApp\\src\\main\\resources\\model\\phishing_xgboost.onnx";
+    @Value("${model.path}")
+    private String modelPath;
     
     private OrtEnvironment environment;
     private OrtSession session;

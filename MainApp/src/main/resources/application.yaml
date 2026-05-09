@@ -24,11 +24,9 @@ spring:
       console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
 ## Phishing Detection Configuration
-#model:
-#  # Path to ONNX model file
-#  # Expected format: path/to/model.onnx
-#  # Download or train model and place in models/ directory
-#  path: models/phishing_detector.onnx
+model:
+  # Path to ONNX model file
+  path: src/main/resources/model/phishing_xgboost.onnx
 #  
   # Feature configuration
 #  features:
