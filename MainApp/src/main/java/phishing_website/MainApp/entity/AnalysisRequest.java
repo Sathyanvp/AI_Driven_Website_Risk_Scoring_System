@@ -25,7 +25,7 @@ public class AnalysisRequest {
 	    private Integer iframe_count;
 	    //Behavioral features
 	    private Integer redirect_indicator;
-	    private Integer possible_js_obfuscation;
+//	    private Integer possible_js_obfuscation;
 	    
 	    
 		//Handles missing values
@@ -46,7 +46,7 @@ public class AnalysisRequest {
 		            iframe_count != null ? iframe_count : 0,
 		            //Behavioral features
 		            redirect_indicator != null ? redirect_indicator : 0,
-		            possible_js_obfuscation != null ? possible_js_obfuscation : 0,
+//		            possible_js_obfuscation != null ? possible_js_obfuscation : 0,
 		         
 		        };
 		}

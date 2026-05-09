@@ -1,10 +1,10 @@
 package phishing_website.MainApp.controller;
 
-import java.util.Arrays;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +48,7 @@ public class PhishingURLController {
 		
         log.info("Features: url = {}, url_len={}, Token_count={}, hyphenated_domain = {}, uses_ip_address ={}, uses_shortener = {}, "
         		+ "Char_entropy={}, n_gram entropy = {}, forms={}, password_field_present ={}, external_form_action = {}, "
-        		+ "iframe_count = {}, redirect_indicator = {}, possible_js_obfuscation = {}",
+        		+ "iframe_count = {}, redirect_indicator = {}",
         		request.getUrl(),
         		request.getUrl_length(),
         		request.getToken_count(),
@@ -61,8 +61,8 @@ public class PhishingURLController {
                 request.getPassword_field_present(),
                 request.getExternal_form_action(),
                 request.getIframe_count(),
-                request.getRedirect_indicator(),
-                request.getPossible_js_obfuscation()
+                request.getRedirect_indicator()
+//                request.getPossible_js_obfuscation()
                 );
       
 		try {

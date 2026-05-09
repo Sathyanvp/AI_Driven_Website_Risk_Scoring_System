@@ -15,6 +15,37 @@ chrome.runtime.onInstalled.addListener(() => {
     });
 });
 
+chrome.runtime.onMessage.addListener((request, sender) => {
+
+    if (request.action === "reanalyze") {
+
+        const tabId = sender.tab.id;
+
+        chrome.tabs.sendMessage(tabId, { action: "extractFeatures" }, async (features) => {
+
+            if (!features) return;
+
+            try {
+                const response = await fetch('http://localhost:8080/api/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(features)
+                });
+
+                const result = await response.json();
+
+                chrome.tabs.sendMessage(tabId, {
+                    action: "showResult",
+                    data: result
+                });
+
+            } catch (e) {
+                console.error("Reanalysis API error:", e);
+            }
+        });
+    }
+});
+
 // SINGLE message listener (fixed)
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 

@@ -30,7 +30,7 @@ public class ExplanationService {
         analyzeDOMFeatures(request, reasons);
         
         // Analyze behavioral features
-        analyzeBehaviorFeatures(request, reasons);
+//        analyzeBehaviorFeatures(request, reasons);
         
         return reasons;
     }
@@ -117,13 +117,13 @@ public class ExplanationService {
     /**
      * Analyze JavaScript behavior features
      */
-    private void analyzeBehaviorFeatures(AnalysisRequest request, List<String> reasons) {
-        // Obfuscated JavaScript
-        if (request.getPossible_js_obfuscation() != null && request.getPossible_js_obfuscation() == 1) {
-            reasons.add("JavaScript code appears to be obfuscated");
-        }
-        
-        
-    }
+//    private void analyzeBehaviorFeatures(AnalysisRequest request, List<String> reasons) {
+//        // Obfuscated JavaScript
+//        if (request.getPossible_js_obfuscation() != null && request.getPossible_js_obfuscation() == 1) {
+//            reasons.add("JavaScript code appears to be obfuscated");
+//        }
+//        
+//        
+//    }
 
 }

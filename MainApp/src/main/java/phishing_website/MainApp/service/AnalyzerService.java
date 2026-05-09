@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import phishing_website.MainApp.entity.AnalysisRequest;
 import phishing_website.MainApp.entity.AnalysisResponse;
 
-import phishing_website.MainApp.util.FeatureNormalizer;
+
 
 
 @Service
@@ -17,15 +17,15 @@ import phishing_website.MainApp.util.FeatureNormalizer;
 public class AnalyzerService {
 	
 	
-	    private FeatureNormalizer normalizer;
+
 	    private ONNXModelService model;
 	    private ExplanationService explanationService;
 	    
 
-	    public AnalyzerService(ONNXModelService model, FeatureNormalizer normalizer, ExplanationService explanationService) {
+	    public AnalyzerService(ONNXModelService model, ExplanationService explanationService) {
 
 		this.model = model;
-		this.normalizer = normalizer;
+
 		this.explanationService = explanationService;
 	}
 
@@ -33,9 +33,7 @@ public class AnalyzerService {
 	public AnalysisResponse analyzeUrl(AnalysisRequest request) {
 		log.info("analyzeurl method got request");
 		try {
-			
-//			AnalysisRequest normalizedrequest = normalizer.normalize(request);
-//			log.info("request normalized");
+
 			float[] features_vector = request.featuretoVector();
 
 			Double probability = model.predict(features_vector);

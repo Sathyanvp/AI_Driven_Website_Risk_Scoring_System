@@ -124,10 +124,11 @@ class FeatureExtractor {
     extractBehaviorFeatures() {
         return {
 			redirect_indicator: document.body.innerText.toLowerCase().includes("redirect") ? 1 : 0,
-            possible_js_obfuscation: document.querySelectorAll("script").length > 20 ? 1 : 0,
+            /*possible_js_obfuscation: document.querySelectorAll("script").length > 20 ? 1 : 0,*/
            
         };
     }
+	
 
     handleResult(result) {
 
@@ -269,11 +270,92 @@ class FeatureExtractor {
 	        }
 	    });
 	}
+	setupMutationObserver() {
+
+	    this.mutationObserver = new MutationObserver((mutations) => {
+
+	        let trigger = false;
+
+	        for (const mutation of mutations) {
+
+	            // ONLY check newly added nodes
+	            if (mutation.type === "childList") {
+
+	                for (const node of mutation.addedNodes) {
+
+	                    if (node.nodeType !== 1) continue;
+
+	                    // Rule 1: password field injected
+	                    if (node.matches && node.matches('input[type="password"]')) {
+	                        console.log("[Detector] Password field injected");
+	                        trigger = true;
+	                    }
+
+	                    if (node.querySelector && node.querySelector('input[type="password"]')) {
+	                        console.log("[Detector] Password field inside injected node");
+	                        trigger = true;
+	                    }
+
+	                    // Rule 2: new form injected
+	                    if (node.tagName === "FORM") {
+	                        console.log("[Detector] Form injected");
+	                        trigger = true;
+	                    }
+
+	                    if (node.querySelector && node.querySelector('form')) {
+	                        console.log("[Detector] Form inside injected node");
+	                        trigger = true;
+	                    }
+	                }
+	            }
+
+	            // OPTIONAL: detect form action change
+	            if (
+	                mutation.type === "attributes" &&
+	                mutation.target.tagName === "FORM" &&
+	                mutation.attributeName === "action"
+	            ) {
+	                console.log("[Detector] Form action changed");
+	                trigger = true;
+	            }
+	        }
+
+	        if (trigger) {
+	            this.controlledReanalysis();
+	        }
+
+	    });
+
+	    this.mutationObserver.observe(document.body, {
+	        childList: true,
+	        subtree: true,
+	        attributes: true,
+	        attributeFilter: ["action"]
+	    });
+	}
+	
+	controlledReanalysis() {
+
+	    const now = Date.now();
+
+	    // Minimum 3 seconds gap
+	    if (!this.lastAnalysisTime || now - this.lastAnalysisTime > 3000) {
+
+	        this.lastAnalysisTime = now;
+
+	        console.log("[Detector] Controlled re-analysis triggered");
+
+	        chrome.runtime.sendMessage({
+	            action: "reanalyze"
+	        });
+	    }
+	}
 	
 }
 
 const extractor = new FeatureExtractor();
 extractor.initialize();
+
 
 // Message interface (CRITICAL)
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {

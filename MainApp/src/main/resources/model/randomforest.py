@@ -19,6 +19,7 @@ Label: 0 (legitimate) or 1 (phishing)
 """
 import os
 from tkinter import _test
+from sklearn.ensemble import RandomForestClassifier as rfc
 from sklearn.metrics import confusion_matrix, classification_report
 import seaborn as seaborn
 import matplotlib.pyplot as matlib
@@ -92,17 +93,21 @@ class PhishingModelTrainer:
         #     'scale_pos_weight': 1
         # }
         
-        self.model = xgb.XGBClassifier(
-            n_estimators=100,
-            max_depth=4,
-            learning_rate=0.7,
-            objective='binary:logistic',
-            eval_metric='logloss')
+        self.model = rfc(
+    n_estimators=250,
+    max_depth=10,
+    min_samples_split=5,
+    min_samples_leaf=2,
+    max_features="sqrt",
+    bootstrap=True,
+    class_weight="balanced",
+    random_state=42,
+    n_jobs=-1
+)
         self.model.fit(
             self.X_train, self.y_train)
         
-        xgb.plot_importance(self.model)
-        matlib.show()
+        
         
     def evaluate(self):
         y_pred = self.model.predict(self.X_test)
@@ -124,14 +129,14 @@ class PhishingModelTrainer:
         initial_types = [('float_input', FloatTensorType([None, num_features]))]
     
     # FIX 4: Use target_opset=15 to match the installed library support
-        onnx_model = onnxmltools.convert_xgboost(
+        onnx_model = onnxmltools.convert_sklearn(
             self.model, 
             initial_types=initial_types,
             target_opset=15 
         )
         #onnx_model.graph.output[0].name = "probabilities"
     # 6. Save the model
-        full_path = os.path.join(output_path, "phishing_xgboost.onnx")
+        full_path = os.path.join(output_path, "phishing_randomforest.onnx")
        
         onnxmltools.utils.save_model(onnx_model, full_path)
         print(f"Model saved as {full_path}")
@@ -161,7 +166,7 @@ class PhishingModelTrainer:
         
         self.train_model()
         self.evaluate()
-        self.save_model(output_path)
+        # self.save_model(output_path)
 #         sample_data = [
 # 33,6,0,0,0,3.6430741894285696,3.6120568402659834,1,0,0,0,2,0]
 #         print(self.predict(sample_data))
