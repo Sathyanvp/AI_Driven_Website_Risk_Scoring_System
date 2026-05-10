@@ -66,4 +66,4 @@ Transmission: The features are sent via a POST request to the Spring Boot /api/a
 
 Inference: The backend loads the pre-trained .onnx model and feeds the input features into the inference engine.
 
-Result: The system returns a risk score (0 to 10). The extension UI updates to show  "Suspicious", or "Phishing" based on the probability.
+Result: The system returns a risk score (0 to 10). The extension UI updates to show  "Medium Risk", or "High Risk" based on the probability with Explaination.
