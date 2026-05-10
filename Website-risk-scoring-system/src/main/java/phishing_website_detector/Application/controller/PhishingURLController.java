@@ -1,4 +1,4 @@
-package phishing_website.MainApp.controller;
+package phishing_website_detector.Application.controller;
 
 
 
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
-import phishing_website.MainApp.entity.AnalysisRequest;
-import phishing_website.MainApp.entity.AnalysisResponse;
+import phishing_website_detector.Application.entity.AnalysisRequest;
+import phishing_website_detector.Application.entity.AnalysisResponse;
 
-import phishing_website.MainApp.service.AnalyzerService;
+import phishing_website_detector.Application.service.AnalyzerService;
 
 @RestController
 @Slf4j

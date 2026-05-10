@@ -1,4 +1,4 @@
-package phishing_website.MainApp.service;
+package phishing_website_detector.Application.service;
 
 
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import phishing_website.MainApp.entity.AnalysisRequest;
-import phishing_website.MainApp.entity.AnalysisResponse;
+import phishing_website_detector.Application.entity.AnalysisRequest;
+import phishing_website_detector.Application.entity.AnalysisResponse;
 
 
 

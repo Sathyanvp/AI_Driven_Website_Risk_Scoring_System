@@ -1,4 +1,4 @@
-package phishing_website.MainApp.service;
+package phishing_website_detector.Application.service;
 
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
@@ -7,12 +7,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import ai.onnxruntime.OrtException;
 import lombok.extern.slf4j.Slf4j;
-import phishing_website.MainApp.entity.AnalysisRequest;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 

@@ -1,13 +1,12 @@
-package phishing_website.MainApp.service;
+package phishing_website_detector.Application.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import phishing_website_detector.Application.entity.AnalysisRequest;
 
-
-import phishing_website.MainApp.entity.AnalysisRequest;
 
 @Service
 public class ExplanationService {

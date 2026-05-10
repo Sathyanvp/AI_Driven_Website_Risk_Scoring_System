@@ -1,4 +1,4 @@
-package phishing_website.MainApp;
+package phishing_website_detector.Application;
 
 
 
@@ -14,11 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootApplication
-public class MainAppApplication {
+public class Website_risk_scoring_system {
  
 	public static void main(String[] args) {
 	
-		SpringApplication.run(MainAppApplication.class, args);
+		SpringApplication.run(Website_risk_scoring_system.class, args);
 		log.info("Application started");
 		log.info("Starting Phishing Detection Backend Service...");
 	}

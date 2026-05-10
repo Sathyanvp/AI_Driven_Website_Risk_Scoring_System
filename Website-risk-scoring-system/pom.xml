@@ -10,10 +10,10 @@
 		<version>4.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>phishing_website</groupId>
-	<artifactId>MainAppApplication</artifactId>
+	<groupId>com.Sathyan</groupId>
+	<artifactId>Website-risk-scoring-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>MainApp</name>
+	<name>AI-driven-risk-scoring-system</name>
 	<description>phishing website detector app</description>
 	<url/>
 	<licenses>
@@ -65,10 +65,10 @@
         </dependency>
 
         <!-- JSON processing -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
 
         <!-- Lombok for reducing boilerplate -->
         <dependency>

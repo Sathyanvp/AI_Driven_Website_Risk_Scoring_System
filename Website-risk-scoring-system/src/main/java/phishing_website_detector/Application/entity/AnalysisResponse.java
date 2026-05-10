@@ -1,4 +1,4 @@
-package phishing_website.MainApp.entity;
+package phishing_website_detector.Application.entity;
 
 
 import java.util.List;
