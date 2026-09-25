@@ -29,7 +29,7 @@ public class Website_risk_scoring_system {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                 		.allowedOriginPatterns("chrome-extension://*", "http://localhost:[*]")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET")
                         .allowedHeaders("*")
                         .allowCredentials(true)
                         .maxAge(3600);
