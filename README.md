@@ -6,7 +6,7 @@ An intelligent, real-time phishing detection system that leverages Machine Learn
 
 This system protects users from phishing attacks by analyzing website characteristics in real-time. It features a dual-component architecture:
 1.  **Chrome Extension:** Acts as the sensor, extracting features from the user's active browser tab.
-2.  **Spring Boot Backend:** Acts as the brain, processing features through an **ONNX**-integrated machine learning model to return a risk probability score.
+2.  **Spring Backend:** Acts as the brain, processing features through an **ONNX**-integrated machine learning model to return a risk probability score.
 
 ## ✨ Key Features
 
@@ -19,13 +19,13 @@ This system protects users from phishing attacks by analyzing website characteri
 
 ### Backend
 * **Language:** Java 17+
-* **Framework:** Spring Boot 3.x
+* **Framework:** Spring 3.x
 * **Build Tool:** Maven
 * **ML Integration:** ONNX Runtime (Java)
 
 ### Machine Learning
 * **Model:** XGBoost
-* **Libraries:** Scikit-learn, Pandas (Data Preprocessing)
+* **Libraries:** Scikit-learn, Numpy, Pandas (Data Preprocessing)
 * **Format:** ONNX (Open Neural Network Exchange)
 
 ### Extension
