@@ -58,7 +58,7 @@ class PhishingModelTrainer:
         df = pd.read_csv(data_path)
         
         # Separate features and label
-        dataset = pd.read_csv(data_path)
+        #dataset = pd.read_csv(data_path)
         df = df[df['url_length'].astype(str) != 'url_length']
 
     # 3. Select Features and Labels
